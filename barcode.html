@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue.js Barcode Generator</title>
+    <!-- Add Vue.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <input v-model="barcodeText" @input="generateBarcode" placeholder="Enter text for barcode">
+            <canvas id="barcode"></canvas>
+        </div>
+    </div>
+
+    <!-- Add JsBarcode CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                barcodeText: '123456789',
+            },
+            mounted() {
+                this.generateBarcode();
+            },
+            methods: {
+                generateBarcode() {
+                    JsBarcode("#barcode", this.barcodeText, {
+                        format: "CODE128",
+                        displayValue: true,
+                    });
+                },
+            },
+        });
+    </script>
+</body>
+</html>

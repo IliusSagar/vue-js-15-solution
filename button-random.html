@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Number with Vue.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>Random Number: {{ randomNumber }}</p>
+        <button @click="generateRandomNumber">Generate Random Number</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                randomNumber: 0
+            },
+            methods: {
+                generateRandomNumber() {
+                    this.randomNumber = Math.floor(Math.random() * 100); // Change 100 to your desired range
+                }
+            }
+        });
+    </script>
+</body>
+</html>

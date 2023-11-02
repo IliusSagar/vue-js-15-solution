@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue.js Select Wise Datatable</title>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    />
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-vue@2.21.2/dist/bootstrap-vue.css"
+        rel="stylesheet"
+    />
+</head>
+<body>
+    <div id="app">
+        <div class="container mt-4">
+            <div class="form-group">
+                <label>Select a category:</label>
+                <select v-model="selectedCategory" @change="filterData">
+                    <option value="">All</option>
+                    <option value="Category1">Category 1</option>
+                    <option value="Category2">Category 2</option>
+                    <option value="Category3">Category 3</option>
+                </select>
+            </div>
+            <b-table
+                :items="filteredItems"
+                :fields="fields"
+                striped
+                bordered
+                hover
+            ></b-table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-vue@2.21.2/dist/bootstrap-vue.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                selectedCategory: '',
+                items: [
+                    { id: 1, name: 'Item 1', category: 'Category1' },
+                    { id: 2, name: 'Item 2', category: 'Category2' },
+                    { id: 3, name: 'Item 3', category: 'Category3' },
+                    { id: 4, name: 'Item 4', category: 'Category1' },
+                    { id: 5, name: 'Item 5', category: 'Category2' },
+                ],
+                fields: ['id', 'name', 'category'],
+            },
+            computed: {
+                filteredItems() {
+                    if (this.selectedCategory === '') {
+                        return this.items;
+                    } else {
+                        return this.items.filter(item => item.category === this.selectedCategory);
+                    }
+                },
+            },
+            methods: {
+                filterData() {
+                    // You can perform additional filtering or actions here
+                },
+            },
+        });
+    </script>
+</body>
+</html>

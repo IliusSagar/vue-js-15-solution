@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue.js Add/Remove Input Fields</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+</head>
+<body>
+  <div id="app">
+    <div v-for="(input, index) in inputs" :key="index">
+      <input v-model="input.value" placeholder="Enter text" />
+      <button @click="removeInput(index)">Remove</button>
+    </div>
+    <button @click="addInput">Add Input</button>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        inputs: [
+          { value: '' } // Initial input field
+        ]
+      },
+      methods: {
+        addInput() {
+          this.inputs.push({ value: '' });
+        },
+        removeInput(index) {
+          this.inputs.splice(index, 1);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

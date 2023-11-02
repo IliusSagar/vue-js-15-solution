@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Search Auto-Suggest</title>
+    <!-- Include Vue.js via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input v-model="searchQuery" @input="search" placeholder="Search">
+        <ul v-if="showSuggestions">
+            <li v-for="suggestion in suggestions" @click="selectSuggestion(suggestion)">{{ suggestion }}</li>
+        </ul>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                searchQuery: '',
+                suggestions: [],
+                showSuggestions: false,
+            },
+            methods: {
+                search() {
+                    // Simulated API call to fetch search suggestions
+                    // Replace this with your actual data source
+                    this.suggestions = this.getMockSuggestions(this.searchQuery);
+                    this.showSuggestions = true;
+                },
+                selectSuggestion(suggestion) {
+                    this.searchQuery = suggestion;
+                    this.showSuggestions = false;
+                },
+                getMockSuggestions(query) {
+                    // Simulated search suggestions
+                    return [
+                        'Apple',
+                        'Banana',
+                        'Cherry',
+                        'Date',
+                        'Fig',
+                        'Grape',
+                        'Lemon',
+                        'Mango',
+                        'Orange',
+                        'Peach',
+                        'Pear',
+                        'Strawberry',
+                        'Watermelon'
+                    ].filter(suggestion => suggestion.toLowerCase().includes(query.toLowerCase()));
+                },
+            },
+        });
+    </script>
+</body>
+</html>

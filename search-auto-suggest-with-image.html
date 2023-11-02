@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue.js Auto-Suggest Search with Images</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input v-model="search" @input="filterItems" placeholder="Search...">
+    <ul v-if="showDropdown" class="suggestion-list">
+      <li v-for="item in filteredItems" @click="selectItem(item)">
+        <img :src="item.image" alt="Image">
+        {{ item.name }}
+      </li>
+    </ul>
+  </div>
+
+  <style>
+    .suggestion-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border: 1px solid #ccc;
+    }
+
+    .suggestion-list li {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+      cursor: pointer;
+    }
+
+    .suggestion-list img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+  </style>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        search: '',
+        items: [
+          { name: 'Item 1', image: 'image1.jpg' },
+          { name: 'Item 2', image: 'image2.jpg' },
+          { name: 'Item 3', image: 'image3.jpg' },
+          { name: 'Item 4', image: 'image4.jpg' },
+          // Add more items with names and image URLs
+        ],
+        showDropdown: false,
+        filteredItems: [],
+      },
+      methods: {
+        filterItems() {
+          this.filteredItems = this.items.filter(item => item.name.toLowerCase().includes(this.search.toLowerCase()));
+          this.showDropdown = this.filteredItems.length > 0;
+        },
+        selectItem(item) {
+          this.search = item.name;
+          this.showDropdown = false;
+        },
+      },
+    });
+  </script>
+</body>
+</html>

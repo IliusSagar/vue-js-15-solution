@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue.js Table Search</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="search" placeholder="Search Table">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="user in filteredUsers" :key="user.id">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        search: '',
+        users: [
+          { id: 1, name: 'John Doe', email: 'john@example.com' },
+          { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
+          { id: 3, name: 'Bob Johnson', email: 'bob@example.com' },
+          // Add more user data here
+        ],
+      },
+      computed: {
+        filteredUsers: function () {
+          return this.users.filter(user => {
+            return user.name.toLowerCase().includes(this.search.toLowerCase()) ||
+                   user.email.toLowerCase().includes(this.search.toLowerCase());
+          });
+        },
+      },
+    });
+  </script>
+</body>
+</html>

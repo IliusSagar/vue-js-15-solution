@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Vue.js Search App</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h1>Search App</h1>
+    <input type="text" v-model="searchText" @input="fetchData">
+    <ul>
+      <li v-for="item in filteredItems" :key="item.id">{{ item.name }}</li>
+    </ul>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        searchText: '',
+        items: [],
+      },
+      methods: {
+        fetchData() {
+          // Replace this URL with your API endpoint
+          const apiUrl = 'https://jsonplaceholder.typicode.com/posts'; 
+
+          fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+              this.items = data;
+            })
+            .catch(error => {
+              console.error('Error fetching data:', error);
+            });
+        }
+      },
+      computed: {
+        filteredItems() {
+          return this.items.filter(item =>
+            item.title.toLowerCase().includes(this.searchText.toLowerCase())
+          );
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
